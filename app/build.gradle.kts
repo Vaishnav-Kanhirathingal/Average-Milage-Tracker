@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -59,5 +60,14 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     //------------------------------------------------------------------------------------------maps
-    implementation("com.google.android.gms:play-services-maps:19.0.0")
+    implementation("com.google.android.gms:play-services-maps:19.2.0")
+    implementation("com.google.maps.android:maps-compose:6.4.1")
+    //------------------------------------------------------------------------------------navigation
+    implementation("androidx.navigation:navigation-compose:2.9.0")
+    //---------------------------------------------------------------------------------serialization
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.1")
+    //------------------------------------------------------------------------------------------room
+    val room_version = "2.7.2"
+    implementation("androidx.room:room-runtime:$room_version")
+    ksp("androidx.room:room-compiler:$room_version")
 }
