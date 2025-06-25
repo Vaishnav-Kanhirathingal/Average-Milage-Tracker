@@ -90,7 +90,7 @@ object ViewRouteScreen {
                                         .fillMaxHeight()
                                         .width(width = 1.dp)
                                         .background(color = MaterialTheme.colorScheme.primary),
-                                    )
+                                )
                                 Text(
                                     modifier = Modifier.weight(weight = 1f),
                                     text = "TOTAL Distance (TODO)",

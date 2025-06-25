@@ -7,5 +7,5 @@ import com.example.avarmil.data.models.CompleteRoute
 @Dao
 interface CompleteRouteDao {
     @Query("SELECT * FROM complete_route")
-    fun getAll():List<CompleteRoute>
+    fun getAll(): List<CompleteRoute>
 }
