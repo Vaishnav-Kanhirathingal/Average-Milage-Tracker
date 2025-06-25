@@ -5,6 +5,7 @@ plugins {
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
     id("com.google.devtools.ksp")
     kotlin("plugin.serialization") version "2.2.0"
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -71,4 +72,7 @@ dependencies {
     val room_version = "2.7.2"
     implementation("androidx.room:room-runtime:$room_version")
     ksp("androidx.room:room-compiler:$room_version")
+    //-----------------------------------------------------------------------------------dagger-hilt
+    implementation("com.google.dagger:hilt-android:2.56.2")
+    ksp("com.google.dagger:hilt-android-compiler:2.56.2")
 }

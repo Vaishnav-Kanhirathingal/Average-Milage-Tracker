@@ -14,8 +14,10 @@ import com.example.avarmil.ui.sections.home.HomeScreen
 import com.example.avarmil.ui.sections.start.StartScreen
 import com.example.avarmil.ui.sections.view_route.ViewRouteScreen
 import com.example.avarmil.ui.theme.AvarMilTheme
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.serialization.Serializable
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
