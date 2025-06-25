@@ -46,9 +46,25 @@ object HomeScreen {
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .weight(weight = 1f),
+                                .weight(weight = 1f)
+                                .padding(
+                                    start = 16.dp,
+                                    end = 16.dp,
+                                    top = 16.dp
+                                )
+                                .clip(shape = RoundedCornerShape(size = CustomSharedValues.buttonCornerSize))
+                                .background(
+                                    color = Color(
+                                        red = 0,
+                                        green = 0,
+                                        blue = 0,
+                                        alpha = 0x18
+                                    )
+                                ),
                             content = {
-                                GoogleMap(modifier = Modifier.fillMaxSize())
+                                GoogleMap(
+                                    modifier = Modifier.fillMaxSize()
+                                )
                                 Icon(
                                     modifier = Modifier
                                         .align(alignment = Alignment.TopEnd)
