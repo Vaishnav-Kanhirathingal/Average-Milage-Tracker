@@ -11,6 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.avarmil.ui.sections.home.HomeScreen
+import com.example.avarmil.ui.sections.route_history.RouteHistoryScreen
 import com.example.avarmil.ui.sections.start.StartScreen
 import com.example.avarmil.ui.sections.view_route.ViewRouteScreen
 import com.example.avarmil.ui.theme.AvarMilTheme
@@ -30,7 +31,7 @@ class MainActivity : ComponentActivity() {
         NavHost(
             modifier = Modifier.fillMaxSize(),
             navController = rememberNavController(),
-            startDestination = Destinations.Start,
+            startDestination = Destinations.Home, // TODO: set to Start
             builder = {
                 val composableModifier = Modifier.fillMaxSize()
                 composable<Destinations.Start>(
@@ -40,9 +41,7 @@ class MainActivity : ComponentActivity() {
                     content = { HomeScreen.Screen(modifier = composableModifier) }
                 )
                 composable<Destinations.RouteHistory>(
-                    content = {
-                        TODO()
-                    }
+                    content = { RouteHistoryScreen.Screen(modifier = composableModifier) }
                 )
                 composable<Destinations.ViewRoute>(
                     content = {

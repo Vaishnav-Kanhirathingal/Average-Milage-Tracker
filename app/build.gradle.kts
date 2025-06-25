@@ -44,6 +44,10 @@ android {
     }
 }
 
+secrets {
+    propertiesFileName = "secrets.properties"
+}
+
 dependencies {
 
     implementation(libs.androidx.core.ktx)
