@@ -10,7 +10,9 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.avarmil.ui.sections.home.HomeScreen
 import com.example.avarmil.ui.sections.start.StartScreen
+import com.example.avarmil.ui.sections.view_route.ViewRouteScreen
 import com.example.avarmil.ui.theme.AvarMilTheme
 import kotlinx.serialization.Serializable
 
@@ -30,10 +32,23 @@ class MainActivity : ComponentActivity() {
             builder = {
                 val composableModifier = Modifier.fillMaxSize()
                 composable<Destinations.Start>(
+                    content = { StartScreen.Screen(modifier = composableModifier) }
+                )
+                composable<Destinations.Home>(
+                    content = { HomeScreen.Screen(modifier = composableModifier) }
+                )
+                composable<Destinations.RouteHistory>(
                     content = {
-                        StartScreen.Screen(
-                            modifier = composableModifier
+                        TODO()
+                    }
+                )
+                composable<Destinations.ViewRoute>(
+                    content = {
+                        val routeId = it.arguments?.getInt(Destinations.ViewRoute::routeId.name)
+                        ViewRouteScreen.Screen(
+                            modifier = Modifier
                         )
+                        TODO("Use route id to get route details")
                     }
                 )
             }
@@ -45,4 +60,14 @@ sealed class Destinations {
     @Serializable
     data object Start : Destinations()
 
+    @Serializable
+    data object Home : Destinations()
+
+    @Serializable
+    data object RouteHistory : Destinations()
+
+    @Serializable
+    data class ViewRoute(
+        val routeId: Int
+    )
 }
