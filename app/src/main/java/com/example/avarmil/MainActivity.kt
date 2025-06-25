@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.avarmil.ui.sections.start.StartDestination
+import com.example.avarmil.ui.sections.start.StartScreen
 import com.example.avarmil.ui.theme.AvarMilTheme
 import kotlinx.serialization.Serializable
 
@@ -31,7 +31,7 @@ class MainActivity : ComponentActivity() {
                 val composableModifier = Modifier.fillMaxSize()
                 composable<Destinations.Start>(
                     content = {
-                        StartDestination.Screen(
+                        StartScreen.Screen(
                             modifier = composableModifier
                         )
                     }

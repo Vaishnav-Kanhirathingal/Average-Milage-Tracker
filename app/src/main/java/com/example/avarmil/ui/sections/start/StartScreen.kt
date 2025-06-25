@@ -10,7 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 /** this is the first screen to open on start up. this handles all the permission handle */
-object StartDestination {
+object StartScreen {
     @Composable
     fun Screen(modifier: Modifier) {
         Scaffold(
