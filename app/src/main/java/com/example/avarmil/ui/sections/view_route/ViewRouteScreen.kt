@@ -28,7 +28,6 @@ import com.example.avarmil.ui.shared.SimpleRoundedCornerButton
 import com.example.avarmil.util.annotations.VerticalPreview
 import com.example.avarmil.util.values.AverMilFonts
 import com.example.avarmil.util.values.CustomSharedValues
-import com.example.avarmil.util.values.CustomSharedValues.setSizeLimitation
 import com.google.maps.android.compose.GoogleMap
 
 object ViewRouteScreen {
@@ -118,7 +117,6 @@ object ViewRouteScreen {
 
                         SimpleRoundedCornerButton(
                             modifier = Modifier
-                                .setSizeLimitation()
                                 .fillMaxWidth()
                                 .padding(horizontal = 16.dp),
                             text = "Back",
