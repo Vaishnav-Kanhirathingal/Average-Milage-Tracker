@@ -25,7 +25,6 @@ import com.example.avarmil.ui.shared.SimpleRoundedCornerButton
 import com.example.avarmil.util.annotations.VerticalPreview
 import com.example.avarmil.util.values.AverMilFonts
 import com.example.avarmil.util.values.CustomSharedValues
-import com.google.accompanist.permissions.ExperimentalPermissionsApi
 
 /** this is the first screen to open on start up. this handles all the permission handle */
 object StartScreen {
@@ -82,7 +81,7 @@ object StartScreen {
                             vertical = 16.dp
                         ),
                     verticalArrangement = Arrangement.spacedBy(
-                        space = 4.dp,
+                        space = 8.dp,
                         alignment = Alignment.CenterVertically
                     ),
                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -99,11 +98,18 @@ object StartScreen {
 
                         RationaleCard(
                             modifier = Modifier.fillMaxWidth(),
+                            phasesToClear = PhasesToClear.LOCATION_PERMISSION,
+                            onClick = { TODO() }
+                        )
+                        RationaleCard(
+                            modifier = Modifier.fillMaxWidth(),
+                            phasesToClear = PhasesToClear.BATTERY_OPTIMIZATION,
+                            onClick = { TODO() }
+                        )
+                        RationaleCard(
+                            modifier = Modifier.fillMaxWidth(),
                             phasesToClear = PhasesToClear.NOTIFICATION_PERMISSION,
-                            onClick = {
-                                TODO()
-
-                            }
+                            onClick = { TODO() }
                         )
                     }
                 )
@@ -125,7 +131,7 @@ object StartScreen {
                 )
                 .padding(horizontal = 16.dp, vertical = 8.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(space = 4.dp),
+            horizontalArrangement = Arrangement.spacedBy(space = 8.dp),
             content = {
                 Column(
                     modifier = Modifier.weight(weight = 1f),
@@ -144,6 +150,7 @@ object StartScreen {
                             fontFamily = AverMilFonts.font,
                             fontWeight = FontWeight.Medium,
                             fontSize = AverMilFonts.Label.medium,
+                            lineHeight = AverMilFonts.Label.medium,
                             color = MaterialTheme.colorScheme.onSurface
                         )
 
@@ -157,7 +164,6 @@ object StartScreen {
             }
         )
     }
-
 }
 
 @VerticalPreview
