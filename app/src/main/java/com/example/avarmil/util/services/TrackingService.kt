@@ -1,9 +1,18 @@
 package com.example.avarmil.util.services
 
+import android.Manifest
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.app.Service
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.location.Location
 import android.os.IBinder
+import android.os.Looper
+import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import com.example.avarmil.R
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -34,6 +43,19 @@ class TrackingService : Service() {
         }
     }
 
+    private fun createNotification(): Notification {
+        val channelId = "location_channel"
+        val channel =
+            NotificationChannel(channelId, "Location Tracking", NotificationManager.IMPORTANCE_LOW)
+        getSystemService(NotificationManager::class.java).createNotificationChannel(channel)
+
+        return NotificationCompat.Builder(this, channelId)
+            .setContentTitle("Tracking Location")
+            .setContentText("Tracking in progress...") // TODO: show elapsed time
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .build()
+    }
+
     override fun onCreate() {
         super.onCreate()
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
@@ -43,17 +65,27 @@ class TrackingService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-
-//        startForeground(1)
-//
-//        fusedLocationProviderClient.requestLocationUpdates(
-//            locationRequest,
-//
-//            )
+        startForeground(1, createNotification())
+        if (
+            ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            TODO("Request permissions")
+        }
+        fusedLocationProviderClient.requestLocationUpdates(
+            locationRequest,
+            locationCallback,
+            Looper.getMainLooper()
+        )
         return START_STICKY
     }
 
-    override fun onBind(p0: Intent?): IBinder? {
-        TODO("Not yet implemented")
+    override fun onBind(p0: Intent?): IBinder? = null
+
+    override fun onDestroy() {
+        super.onDestroy()
+        fusedLocationProviderClient.removeLocationUpdates(locationCallback)
     }
 }
