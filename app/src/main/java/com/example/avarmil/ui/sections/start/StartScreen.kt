@@ -1,5 +1,6 @@
 package com.example.avarmil.ui.sections.start
 
+import android.os.Build
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -25,6 +26,10 @@ import com.example.avarmil.ui.shared.SimpleRoundedCornerButton
 import com.example.avarmil.util.annotations.VerticalPreview
 import com.example.avarmil.util.values.AverMilFonts
 import com.example.avarmil.util.values.CustomSharedValues
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.isGranted
+import com.google.accompanist.permissions.rememberMultiplePermissionsState
+import com.google.accompanist.permissions.rememberPermissionState
 
 /** this is the first screen to open on start up. this handles all the permission handle */
 object StartScreen {
@@ -37,6 +42,9 @@ object StartScreen {
         Scaffold(
             modifier = modifier,
             content = {
+                PermissionGuideDialog(
+                    dismiss = { TODO() }
+                )
                 Column(
                     modifier = Modifier
                         .padding(paddingValues = it)
@@ -62,9 +70,11 @@ object StartScreen {
         )
     }
 
-    @OptIn(ExperimentalMaterial3Api::class)
+    @OptIn(ExperimentalMaterial3Api::class, ExperimentalPermissionsApi::class)
     @Composable
-    fun PermissionGuideDialog() {
+    fun PermissionGuideDialog(
+        dismiss: () -> Unit
+    ) {
         BasicAlertDialog(
             modifier = Modifier.fillMaxWidth(),
             onDismissRequest = {},
@@ -89,27 +99,52 @@ object StartScreen {
                         Text(
                             modifier = Modifier.fillMaxWidth(),
                             textAlign = TextAlign.Center,
-                            text = "Permissions required",
+                            text = "Permissions pending",
                             fontFamily = AverMilFonts.font,
                             fontWeight = FontWeight.Bold,
                             fontSize = AverMilFonts.Title.medium,
                             color = MaterialTheme.colorScheme.onSurface
                         )
-
-                        RationaleCard(
-                            modifier = Modifier.fillMaxWidth(),
-                            phasesToClear = PhasesToClear.LOCATION_PERMISSION,
-                            onClick = { TODO() }
+                        val locationPermissionState = rememberMultiplePermissionsState(
+                            permissions = listOf(
+                                android.Manifest.permission.ACCESS_FINE_LOCATION,
+                                android.Manifest.permission.ACCESS_COARSE_LOCATION
+                            )
                         )
+                        if (!locationPermissionState.allPermissionsGranted) {
+                            RationaleCard(
+                                modifier = Modifier.fillMaxWidth(),
+                                phasesToClear = PhasesToClear.LOCATION_PERMISSION,
+                                onClick = locationPermissionState::launchMultiplePermissionRequest
+
+                            )
+                        }
                         RationaleCard(
                             modifier = Modifier.fillMaxWidth(),
                             phasesToClear = PhasesToClear.BATTERY_OPTIMIZATION,
                             onClick = { TODO() }
                         )
-                        RationaleCard(
+
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                            val notificationPermissionState = rememberPermissionState(
+                                permission = android.Manifest.permission.POST_NOTIFICATIONS
+                            )
+                            if (!notificationPermissionState.status.isGranted) {
+                                RationaleCard(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    phasesToClear = PhasesToClear.NOTIFICATION_PERMISSION,
+                                    onClick = notificationPermissionState::launchPermissionRequest
+                                )
+                            }
+                        }
+                        Text(
                             modifier = Modifier.fillMaxWidth(),
-                            phasesToClear = PhasesToClear.NOTIFICATION_PERMISSION,
-                            onClick = { TODO() }
+                            textAlign = TextAlign.Center,
+                            text = "*These permissions are necessary for correct functionality of the application",
+                            fontFamily = AverMilFonts.font,
+                            fontWeight = FontWeight.Medium,
+                            fontSize = AverMilFonts.Label.medium,
+                            color = MaterialTheme.colorScheme.onSurface
                         )
                     }
                 )
@@ -169,7 +204,9 @@ object StartScreen {
 @VerticalPreview
 @Composable
 fun PermissionGuideDialogPrev() {
-    StartScreen.PermissionGuideDialog()
+    StartScreen.PermissionGuideDialog(
+        dismiss = {}
+    )
 }
 
 enum class PhasesToClear(
