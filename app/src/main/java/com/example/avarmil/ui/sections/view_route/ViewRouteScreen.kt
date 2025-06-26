@@ -24,6 +24,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.avarmil.ui.shared.SimpleRoundedCornerButton
 import com.example.avarmil.util.annotations.VerticalPreview
 import com.example.avarmil.util.values.AverMilFonts
 import com.example.avarmil.util.values.CustomSharedValues
@@ -115,23 +116,13 @@ object ViewRouteScreen {
                             }
                         )
 
-                        Box(
+                        SimpleRoundedCornerButton(
                             modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 16.dp)
                                 .setSizeLimitation()
-                                .clip(shape = RoundedCornerShape(size = CustomSharedValues.buttonCornerSize))
-                                .background(color = MaterialTheme.colorScheme.primaryContainer),
-                            contentAlignment = Alignment.Center,
-                            content = {
-                                Text(
-                                    text = "Back",
-                                    fontFamily = AverMilFonts.font,
-                                    fontWeight = FontWeight.Medium,
-                                    fontSize = AverMilFonts.Body.medium,
-                                    color = MaterialTheme.colorScheme.onPrimaryContainer
-                                )
-                            }
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp),
+                            text = "Back",
+                            onClick = { TODO() }
                         )
                     }
                 )

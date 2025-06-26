@@ -1,7 +1,6 @@
 package com.example.avarmil.ui.sections.home
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,19 +13,15 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.example.avarmil.ui.shared.SimpleRoundedCornerButton
 import com.example.avarmil.util.annotations.VerticalPreview
-import com.example.avarmil.util.values.AverMilFonts
 import com.example.avarmil.util.values.CustomSharedValues
 import com.example.avarmil.util.values.CustomSharedValues.setSizeLimitation
 import com.google.maps.android.compose.GoogleMap
@@ -90,40 +85,14 @@ object HomeScreen {
                             ),
                             verticalAlignment = Alignment.CenterVertically,
                             content = {
-                                @Composable
-                                fun RoundedButton(
-                                    modifier: Modifier,
-                                    text: String,
-                                    onClick: () -> Unit
-                                ) {
-                                    Box(
-                                        modifier = modifier
-                                            .clip(shape = RoundedCornerShape(size = CustomSharedValues.buttonCornerSize))
-                                            .background(color = MaterialTheme.colorScheme.primaryContainer)
-                                            .clickable(onClick = onClick),
-                                        contentAlignment = Alignment.Center,
-                                        content = {
-                                            Text(
-                                                modifier = Modifier.fillMaxWidth(),
-                                                textAlign = TextAlign.Center,
-                                                text = text,
-                                                fontFamily = AverMilFonts.font,
-                                                fontSize = AverMilFonts.Body.medium,
-                                                fontWeight = FontWeight.Medium,
-                                                color = MaterialTheme.colorScheme.onPrimaryContainer
-                                            )
-                                        }
-                                    )
-                                }
-
-                                RoundedButton(
+                                SimpleRoundedCornerButton(
                                     modifier = Modifier
                                         .setSizeLimitation()
                                         .weight(weight = 1f),
                                     onClick = { TODO() },
                                     text = "Pause/Resume"
                                 )
-                                RoundedButton(
+                                SimpleRoundedCornerButton(
                                     modifier = Modifier
                                         .setSizeLimitation()
                                         .weight(weight = 1f),
