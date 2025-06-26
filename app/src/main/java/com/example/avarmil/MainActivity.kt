@@ -28,14 +28,20 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     private fun AverMilNavHost() {
+        val navController = rememberNavController()
         NavHost(
             modifier = Modifier.fillMaxSize(),
-            navController = rememberNavController(),
-            startDestination = Destinations.Home, // TODO: set to Start
+            navController = navController,
+            startDestination = Destinations.Start,
             builder = {
                 val composableModifier = Modifier.fillMaxSize()
                 composable<Destinations.Start>(
-                    content = { StartScreen.Screen(modifier = composableModifier) }
+                    content = {
+                        StartScreen.Screen(
+                            modifier = composableModifier,
+                            toHomeScreen = { navController.navigate(route = Destinations.Home) }
+                        )
+                    }
                 )
                 composable<Destinations.Home>(
                     content = { HomeScreen.Screen(modifier = composableModifier) }
