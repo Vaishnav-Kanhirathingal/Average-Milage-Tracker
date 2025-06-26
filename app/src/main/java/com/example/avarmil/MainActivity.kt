@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -39,6 +40,7 @@ class MainActivity : ComponentActivity() {
                     content = {
                         StartScreen.Screen(
                             modifier = composableModifier,
+                            startScreenViewModel = viewModel(), // TODO: verify if working
                             toHomeScreen = { navController.navigate(route = Destinations.Home) }
                         )
                     }

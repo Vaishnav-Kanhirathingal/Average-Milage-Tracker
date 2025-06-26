@@ -79,4 +79,6 @@ dependencies {
     //-----------------------------------------------------------------------------------dagger-hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
+    //-----------------------------------------------------------------------------------permissions
+    implementation("com.google.accompanist:accompanist-permissions:0.37.3")
 }
