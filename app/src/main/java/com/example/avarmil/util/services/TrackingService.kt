@@ -10,6 +10,7 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.os.IBinder
 import android.os.Looper
+import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import com.example.avarmil.R
@@ -21,6 +22,8 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 
 class TrackingService : Service() {
+    private val TAG = this::class.simpleName
+
     companion object {
         const val INTENT_FILTER = "DISTANCE_UPDATE"
         const val TOTAL_DISTANCE_KEY = "total_distance_key"
@@ -39,6 +42,11 @@ class TrackingService : Service() {
                 totalDistance += distance
                 sendBroadcast(Intent(INTENT_FILTER).putExtra(TOTAL_DISTANCE_KEY, totalDistance))
                 lastValidLocation = location
+
+                Log.d(
+                    TAG, "totalDistance = $totalDistance | " +
+                            "current location = ${lastValidLocation?.latitude}, ${lastValidLocation?.longitude}"
+                )
             }
         }
     }
@@ -58,9 +66,10 @@ class TrackingService : Service() {
 
     override fun onCreate() {
         super.onCreate()
+        Log.d(TAG,"service created")
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         locationRequest = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 5_000L)
-            .setMinUpdateDistanceMeters(10.0f)
+//            .setMinUpdateDistanceMeters(10.0f)
             .build()
     }
 
